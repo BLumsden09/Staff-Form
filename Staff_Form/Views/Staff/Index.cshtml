@@ -1,0 +1,15 @@
+﻿
+@model Staff_Form.Models.StaffInformationViewModel
+
+<h2>Select appropriate staff classification:</h2>
+
+<div>
+
+    <form action="@Url.Action("ButtonCheck", "Staff")" method="get">
+        @Html.RadioButtonFor(m=>m.StaffType, "District") District      
+        <br />
+        @Html.RadioButtonFor(m=>m.StaffType, "School") School
+        <br />
+        <input type="submit" value="Submit" />
+    </form>
+</div>

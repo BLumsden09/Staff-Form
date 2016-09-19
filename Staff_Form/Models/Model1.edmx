@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="KUDERModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="leaID" />
+          </Key>
+          <Property Name="leaID" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="organizationType" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="streetLine1" Type="nvarchar" MaxLength="40" />
+          <Property Name="streetLine2" Type="nvarchar" MaxLength="40" />
+          <Property Name="city" Type="nvarchar" MaxLength="30" />
+          <Property Name="stateProvince" Type="nvarchar" MaxLength="2" />
+          <Property Name="postalCode" Type="nvarchar" MaxLength="17" />
+          <Property Name="county" Type="nvarchar" MaxLength="30" />
+          <Property Name="NCESID_district" Type="nvarchar" MaxLength="7" />
+          <Property Name="code1" Type="nvarchar" MaxLength="5" />
+          <Property Name="code2" Type="nvarchar" MaxLength="5" />
+          <Property Name="date_created" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="date_updated" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="securityCode" Type="nvarchar" MaxLength="6" />
+        </EntityType>
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="leaID" />
+            <PropertyRef Name="schoolID" />
+          </Key>
+          <Property Name="leaID" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="schoolID" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="organizationType" Type="nvarchar" MaxLength="40" />
+          <Property Name="gradesOffered" Type="nvarchar" MaxLength="60" />
+          <Property Name="streetLine1" Type="nvarchar(max)" />
+          <Property Name="streetLine2" Type="nvarchar(max)" />
+          <Property Name="city" Type="nvarchar" MaxLength="30" />
+          <Property Name="stateProvince" Type="nvarchar" MaxLength="50" />
+          <Property Name="postalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="county" Type="nvarchar" MaxLength="50" />
+          <Property Name="NCESID_district" Type="nvarchar" MaxLength="50" />
+          <Property Name="NCESID_school" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="code1" Type="nvarchar" MaxLength="50" />
+          <Property Name="code2" Type="nvarchar" MaxLength="50" />
+          <Property Name="date_created" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="date_updated" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FL_grade_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="FL_school_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="FL_charter_school_status" Type="nvarchar" MaxLength="50" />
+          <Property Name="FL_region_code" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="staffID" />
+          </Key>
+          <Property Name="staffID" Type="int" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="35" Nullable="false" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="35" Nullable="false" />
+          <Property Name="positionTitle" Type="nvarchar" MaxLength="45" />
+          <Property Name="leaID" Type="nvarchar" MaxLength="2" />
+          <Property Name="schoolID" Type="nvarchar" MaxLength="4" />
+          <Property Name="phoneNumber" Type="nvarchar" MaxLength="24" />
+          <Property Name="email" Type="nvarchar" MaxLength="128" />
+          <Property Name="username" Type="nvarchar" MaxLength="20" />
+          <Property Name="password" Type="nvarchar" MaxLength="20" />
+          <Property Name="code1" Type="nvarchar" MaxLength="5" />
+          <Property Name="code2" Type="nvarchar" MaxLength="5" />
+          <Property Name="date_created" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="date_updated" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_School_0">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="School" Type="Self.School" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="leaID" />
+            </Principal>
+            <Dependent Role="School">
+              <PropertyRef Name="leaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KUDERModelStoreContainer">
+          <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="School" EntityType="Self.School" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_School_0" Association="Self.FK_School_0">
+            <End Role="District" EntitySet="District" />
+            <End Role="School" EntitySet="School" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KUDERModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="leaID" />
+          </Key>
+          <Property Name="leaID" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="organizationType" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="streetLine1" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="streetLine2" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="stateProvince" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="postalCode" Type="String" MaxLength="17" FixedLength="false" Unicode="true" />
+          <Property Name="county" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="NCESID_district" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="code1" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="code2" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="date_updated" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="securityCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Schools" Relationship="Self.FK_School_0" FromRole="District" ToRole="School" />
+        </EntityType>
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="leaID" />
+            <PropertyRef Name="schoolID" />
+          </Key>
+          <Property Name="leaID" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="schoolID" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="organizationType" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="gradesOffered" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="streetLine1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="streetLine2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="stateProvince" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="postalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="county" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NCESID_district" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NCESID_school" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="code1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="code2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="date_updated" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FL_grade_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FL_school_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FL_charter_school_status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FL_region_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="District" Relationship="Self.FK_School_0" FromRole="School" ToRole="District" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="staffID" />
+          </Key>
+          <Property Name="staffID" Type="Int32" Nullable="false" />
+          <Property Name="firstName" Type="String" MaxLength="35" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="35" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="positionTitle" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="leaID" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="schoolID" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="phoneNumber" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="code1" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="code2" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="date_updated" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <Association Name="FK_School_0">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="School" Type="Self.School" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="leaID" />
+            </Principal>
+            <Dependent Role="School">
+              <PropertyRef Name="leaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KUDEREntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Districts" EntityType="Self.District" />
+          <EntitySet Name="Schools" EntityType="Self.School" />
+          <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <AssociationSet Name="FK_School_0" Association="Self.FK_School_0">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="School" EntitySet="Schools" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KUDERModelStoreContainer" CdmEntityContainer="KUDEREntities">
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="KUDERModel.District">
+              <MappingFragment StoreEntitySet="District">
+                <ScalarProperty Name="leaID" ColumnName="leaID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="organizationType" ColumnName="organizationType" />
+                <ScalarProperty Name="streetLine1" ColumnName="streetLine1" />
+                <ScalarProperty Name="streetLine2" ColumnName="streetLine2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="stateProvince" ColumnName="stateProvince" />
+                <ScalarProperty Name="postalCode" ColumnName="postalCode" />
+                <ScalarProperty Name="county" ColumnName="county" />
+                <ScalarProperty Name="NCESID_district" ColumnName="NCESID_district" />
+                <ScalarProperty Name="code1" ColumnName="code1" />
+                <ScalarProperty Name="code2" ColumnName="code2" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="date_updated" ColumnName="date_updated" />
+                <ScalarProperty Name="securityCode" ColumnName="securityCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schools">
+            <EntityTypeMapping TypeName="KUDERModel.School">
+              <MappingFragment StoreEntitySet="School">
+                <ScalarProperty Name="leaID" ColumnName="leaID" />
+                <ScalarProperty Name="schoolID" ColumnName="schoolID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="organizationType" ColumnName="organizationType" />
+                <ScalarProperty Name="gradesOffered" ColumnName="gradesOffered" />
+                <ScalarProperty Name="streetLine1" ColumnName="streetLine1" />
+                <ScalarProperty Name="streetLine2" ColumnName="streetLine2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="stateProvince" ColumnName="stateProvince" />
+                <ScalarProperty Name="postalCode" ColumnName="postalCode" />
+                <ScalarProperty Name="county" ColumnName="county" />
+                <ScalarProperty Name="NCESID_district" ColumnName="NCESID_district" />
+                <ScalarProperty Name="NCESID_school" ColumnName="NCESID_school" />
+                <ScalarProperty Name="code1" ColumnName="code1" />
+                <ScalarProperty Name="code2" ColumnName="code2" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="date_updated" ColumnName="date_updated" />
+                <ScalarProperty Name="FL_grade_code" ColumnName="FL_grade_code" />
+                <ScalarProperty Name="FL_school_type" ColumnName="FL_school_type" />
+                <ScalarProperty Name="FL_charter_school_status" ColumnName="FL_charter_school_status" />
+                <ScalarProperty Name="FL_region_code" ColumnName="FL_region_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="KUDERModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="staffID" ColumnName="staffID" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+                <ScalarProperty Name="leaID" ColumnName="leaID" />
+                <ScalarProperty Name="schoolID" ColumnName="schoolID" />
+                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="code1" ColumnName="code1" />
+                <ScalarProperty Name="code2" ColumnName="code2" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="date_updated" ColumnName="date_updated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram DiagramId="312c351711204778969b1e3724f7681d" Name="Diagram1">
+        <EntityTypeShape EntityType="KUDERModel.District" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KUDERModel.School" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KUDERModel.Staff" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="KUDERModel.FK_School_0" ManuallyRouted="false" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

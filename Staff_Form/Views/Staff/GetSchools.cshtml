@@ -1,0 +1,8 @@
+﻿
+@model System.Collections.Generic.IEnumerable<System.Web.Mvc.SelectListItem>
+@{ Layout = null;}
+
+@foreach (var school in Model)
+{
+    <option value="@school.Value">@school.Text</option>
+}

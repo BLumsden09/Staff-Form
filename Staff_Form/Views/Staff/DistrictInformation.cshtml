@@ -1,0 +1,12 @@
+﻿@model Staff_Form.Models.DistrictListViewModel
+
+
+<h2>District Information</h2>
+
+<div>
+    <form action="@Url.Action("StaffInformation", "Staff")" method="get">
+        District: @Html.DropDownListFor(m => m.SelectedDistrict, Model.Districts, "----Select----")
+        Security Code: @Html.TextBoxFor(m=>m.DistrictCode)
+        <input type="submit" value="Submit" />
+    </form>
+</div>

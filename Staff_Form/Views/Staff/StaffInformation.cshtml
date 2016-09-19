@@ -1,0 +1,17 @@
+﻿
+@model Staff_Form.Models.StaffInformationViewModel
+
+<h2>Please complete the form with most recent information</h2>
+
+<div>
+    <form action="@Url.Action("Create", "Staff")" method="get">
+        First name: @Html.TextBoxFor(m => m.FirstName) <br />
+        Last name: @Html.TextBoxFor(m => m.LastName) <br />
+        Position: @Html.TextBoxFor(m => m.PositionTitle) <br />
+        Phone: @Html.TextBoxFor(m => m.PhoneNumber) <br />
+        Email: @Html.TextBoxFor(m => m.Email) <br /><br />
+        Username: @Html.TextBoxFor(m => m.Username) <br />
+        Password: @Html.PasswordFor(m => m.Password) <br />
+        <input type="submit" value="Submit" />
+    </form>
+</div>

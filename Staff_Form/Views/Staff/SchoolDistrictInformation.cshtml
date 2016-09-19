@@ -1,0 +1,39 @@
+﻿
+@model Staff_Form.Models.DistrictSchoolListViewModel 
+
+<h2>Select District and School from list</h2>
+
+<body>
+    <form action="@Url.Action("Staffinformation", "Staff")" method ="get">
+
+        <div>
+            District: @Html.DropDownListFor(m => m.SelectedDistrict, Model.Districts, "----Select----")
+            Security Code: @Html.TextBoxFor(m => m.DistrictCode) <br />
+        </div>
+        <div>
+            School: @Html.DropDownListFor(m => m.SelectedSchool, Model.Schools, "----Select----")
+        </div>
+        <input type="submit" value="Submit"/>
+    </form>
+
+
+    <script type="text/javascript" src="~/scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+       // $(function () {
+            var url = '@Url.Action("GetSchools", "Staff")';
+            var schools = $('#SelectedSchool');
+            $('#SelectedDistrict').change(function () {
+                schools.empty();
+                $.getJSON(url, { id: $(this).val() }, function (response) {
+                    if (!response){
+                        return;
+                    }
+                    schools.append($('<option></option>').val('').text('Please select'));
+                    $.each(response, function (index, item) {
+                        schools.append($('<option></option>').val(item.Value).text(item.Text));
+                    });
+                });
+            });
+        //});
+     </script>
+</body>
